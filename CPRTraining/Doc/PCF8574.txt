@@ -1,0 +1,67 @@
+/*
+               各模块的管脚使用情况配置
+*/
+
+//************************************************************
+
+
+//************************************************************
+					工程配置宏变量初始化
+	STM32F10X_CL,USE_STDPERIPH_DRIVER
+
+
+//************************************************************
+							PCF8574
+
+<----PCF8574 IO 配置  ---->
+
+SCL_PCF8574  --  PE5
+
+SDA_PCF8574  --  PE3
+
+
+INT1_PCF8574  -- PE4 
+
+INT4_PCF8574  --  
+
+
+<----PCF8574 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+	stm32f10x_exti.c
+
+<----PCF8574 键盘键值 配置  ---->
+S1  -- 0xFE --  S9
+S2  -- 0xFD --  S10
+S3  -- 0xFB --  S11	
+S4  -- 0xF7 --  S12
+
+S5  -- 0xEF --  S13
+S6  -- 0xDF --  S14
+S7  -- 0xBF --  S15	
+S8  -- 0x7F --  S16
+
+//************************************************************
+								EXIT
+
+IO中断对应的中断句柄关系为：	
+
+				GPIOX0 -- EXTI0_IRQHandler
+				GPIOX1 -- EXTI1_IRQHandler					
+				GPIOX2 -- EXTI1_IRQHandler	
+				GPIOX3 -- EXTI1_IRQHandler					
+				GPIOX4 -- EXTI1_IRQHandler	
+
+				GPIOX5~GPIOX9 -- EXTI9_5_IRQHandler						
+				GPIOX10~GPIOX15 -- EXTI15_10_IRQHandler	
+
+

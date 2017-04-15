@@ -1,0 +1,252 @@
+//*****************************************************************************************************************
+3.0以后的版本中使用了CMSIS数据类型，变量的定义有所不同，但是出于兼容旧版本的目的，以上的数据类型仍然兼容。CMSIS的IO类型限定词如表 5?7所示，CMSIS和STM32固件库的数据类型对比如表 5?8所示。这些数据类型可以在STM32F10x_StdPeriph_Lib_V3.4.0\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h中找到具体的定义，此部分定义如下。
+/*!< STM32F10x Standard Peripheral Library old types (maintained for legacy purpose) */  typedef int32_t s32;
+typedef 	int16_t 		s16;
+typedef 	int8_t 			s8; 
+typedef 	const int32_t 		sc32; 		/*!< Read Only */
+typedef 	const int16_t 		sc16; 		/*!< Read Only */
+typedef 	const int8_t 		sc8; 		/*!< Read Only */
+typedef 	__IO int32_t 		vs32;
+typedef 	__IO int16_t 		vs16;
+typedef 	__IO int8_t 		vs8;
+typedef 	__I int32_t 		vsc32; 		/*!< Read Only */
+typedef 	__I int16_t 		vsc16; 		/*!< Read Only */
+typedef 	__I int8_t 		vsc8; 		/*!< Read Only */
+typedef 	uint32_t 		u32;
+typedef 	uint16_t 		u16;
+typedef 	uint8_t 		u8;
+typedef 	const uint32_t 		uc32; 		/*!< Read Only */
+typedef 	const uint16_t 		uc16; 		/*!< Read Only */
+typedef 	const uint8_t 		uc8; 		/*!< Read Only */
+typedef 	__IO uint32_t 		vu32;
+typedef 	__IO uint16_t 		vu16;
+typedef 	__IO uint8_t 		vu8;
+typedef 	__I uint32_t 		vuc32; 		/*!< Read Only */
+typedef 	__I uint16_t 		vuc16; 		/*!< Read Only */
+typedef 	__I uint8_t 		vuc8; 		/*!< Read Only */
+
+CMSIS IO类型限定词 
+
+IO类限定词	#define			描述
+
+_I	        volatile const		只读访问
+_O		volatile		只写访问
+_IO		volatile		读和写访问
+
+固件库与CMSIS数据类型对比 
+
+固件库类型		CMSIS类型			描述
+
+s32			int32_t			易挥发只读有符号32位数据
+s16			int16_t			易挥发只读有符号16位数据
+s8			int8_t			易挥发只读有符号8位数据
+sc32			const int32_t		只读有符号32位数据
+sc16			const int16_t		只读有符号16位数据
+sc8			const int8_t		只读有符号8位数据
+vs32			_IO int32_t		易挥发读写访问有符号32位数据
+vs16			_IO int16_t		易挥发读写访问有符号16位数据
+vs8			_IO int8_t		易挥发读写访问有符号8位数据
+vsc32			_I int32_t		易挥发只读有符号32位数据
+vsc16			_I int16_t		易挥发只读有符号16位数据
+vsc8			_I int8_t		易挥发只读有符号8位数据
+u32			uint32_t		无符号32位数据
+u16			uint16_t		无符号16位数据
+u8			uint8_t			无符号8位数据
+uc32			const uint32_t		只读无符号32位数据
+uc16			const uint16_t		只读无符号16位数据
+uc8			const uint8_t		只读无符号8位数据
+vu32			_IO uint32_t		易挥发读写访问无符号32位数据
+vu16			_IO uint16_t		易挥发读写访问无符号16位数据
+vu8			_IO uint8_t		易挥发读写访问无符号8位数据
+vuc32			_I uint32_t		易挥发只读无符号32位数据
+vuc16			_I uint16_t		易挥发只读无符号16位数据
+vuc8			_I uint8_t		易挥发只读无符号8位数据
+
+
+
+stm32f10x.h文件中还包含了常用的布尔形变量定义，如：
+
+typedef 	enum 				{RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+typedef 	enum 				{DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+#define 	IS_FUNCTIONAL_STATE(STATE) 	(((STATE) == DISABLE) || ((STATE) == ENABLE))
+typedef 	enum 				{ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+
+
+不同版本的标准外设库的变量定义略有不同，如3.4版本中就没有之前版本的TRUE和FALSE的定义，用户也可以根据自己的需求按照上面的格式定义自己的布尔形变量。在使用标准外设库进行开发遇到相关的定义问题时应首先找到对应的头文件定义。
+
+//*****************************************************************************************************************
+/*
+ * 'signed' is redundant below, except for 'signed char' and if
+ * the typedef is used to declare a bitfield.
+ * '__int64' is used instead of 'long long' so that this header
+ * can be used in --strict mode.
+ */
+
+    /* 7.18.1.1 */
+
+    /* exact-width signed integer types */
+typedef   signed          char int8_t;
+typedef   signed short     int int16_t;
+typedef   signed           int int32_t;
+typedef   signed       __int64 int64_t;
+
+    /* exact-width unsigned integer types */
+typedef unsigned          char uint8_t;
+typedef unsigned short     int uint16_t;
+typedef unsigned           int uint32_t;
+typedef unsigned       __int64 uint64_t;
+
+    /* 7.18.1.2 */
+
+    /* smallest type of at least n bits */
+    /* minimum-width signed integer types */
+typedef   signed          char int_least8_t;
+typedef   signed short     int int_least16_t;
+typedef   signed           int int_least32_t;
+typedef   signed       __int64 int_least64_t;
+
+    /* minimum-width unsigned integer types */
+typedef unsigned          char uint_least8_t;
+typedef unsigned short     int uint_least16_t;
+typedef unsigned           int uint_least32_t;
+typedef unsigned       __int64 uint_least64_t;
+
+    /* 7.18.1.3 */
+
+    /* fastest minimum-width signed integer types */
+typedef   signed           int int_fast8_t;
+typedef   signed           int int_fast16_t;
+typedef   signed           int int_fast32_t;
+typedef   signed       __int64 int_fast64_t;
+
+    /* fastest minimum-width unsigned integer types */
+typedef unsigned           int uint_fast8_t;
+typedef unsigned           int uint_fast16_t;
+typedef unsigned           int uint_fast32_t;
+typedef unsigned       __int64 uint_fast64_t;
+
+    /* 7.18.1.4 integer types capable of holding object pointers */
+typedef   signed           int intptr_t;
+typedef unsigned           int uintptr_t;
+
+    /* 7.18.1.5 greatest-width integer types */
+typedef   signed       __int64 intmax_t;
+typedef unsigned       __int64 uintmax_t;
+
+
+#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+
+    /* 7.18.2.1 */
+
+    /* minimum values of exact-width signed integer types */
+#define INT8_MIN                   -128
+#define INT16_MIN                -32768
+#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+#define INT64_MIN  __ESCAPE__(~0x7fffffffffffffffll) /* -9223372036854775808 is unsigned */
+
+    /* maximum values of exact-width signed integer types */
+#define INT8_MAX                    127
+#define INT16_MAX                 32767
+#define INT32_MAX            2147483647
+#define INT64_MAX  __ESCAPE__(9223372036854775807ll)
+
+    /* maximum values of exact-width unsigned integer types */
+#define UINT8_MAX                   255
+#define UINT16_MAX                65535
+#define UINT32_MAX           4294967295u
+#define UINT64_MAX __ESCAPE__(18446744073709551615ull)
+
+    /* 7.18.2.2 */
+
+    /* minimum values of minimum-width signed integer types */
+#define INT_LEAST8_MIN                   -128
+#define INT_LEAST16_MIN                -32768
+#define INT_LEAST32_MIN          (~0x7fffffff)
+#define INT_LEAST64_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+
+    /* maximum values of minimum-width signed integer types */
+#define INT_LEAST8_MAX                    127
+#define INT_LEAST16_MAX                 32767
+#define INT_LEAST32_MAX            2147483647
+#define INT_LEAST64_MAX  __ESCAPE__(9223372036854775807ll)
+
+    /* maximum values of minimum-width unsigned integer types */
+#define UINT_LEAST8_MAX                   255
+#define UINT_LEAST16_MAX                65535
+#define UINT_LEAST32_MAX           4294967295u
+#define UINT_LEAST64_MAX __ESCAPE__(18446744073709551615ull)
+
+    /* 7.18.2.3 */
+
+    /* minimum values of fastest minimum-width signed integer types */
+#define INT_FAST8_MIN           (~0x7fffffff)
+#define INT_FAST16_MIN          (~0x7fffffff)
+#define INT_FAST32_MIN          (~0x7fffffff)
+#define INT_FAST64_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+
+    /* maximum values of fastest minimum-width signed integer types */
+#define INT_FAST8_MAX             2147483647
+#define INT_FAST16_MAX            2147483647
+#define INT_FAST32_MAX            2147483647
+#define INT_FAST64_MAX  __ESCAPE__(9223372036854775807ll)
+
+    /* maximum values of fastest minimum-width unsigned integer types */
+#define UINT_FAST8_MAX            4294967295u
+#define UINT_FAST16_MAX           4294967295u
+#define UINT_FAST32_MAX           4294967295u
+#define UINT_FAST64_MAX __ESCAPE__(18446744073709551615ull)
+
+    /* 7.18.2.4 */
+
+    /* minimum value of pointer-holding signed integer type */
+#define INTPTR_MIN (~0x7fffffff)
+
+    /* maximum value of pointer-holding signed integer type */
+#define INTPTR_MAX   2147483647
+
+    /* maximum value of pointer-holding unsigned integer type */
+#define UINTPTR_MAX  4294967295u
+
+    /* 7.18.2.5 */
+
+    /* minimum value of greatest-width signed integer type */
+#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+
+    /* maximum value of greatest-width signed integer type */
+#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+
+    /* maximum value of greatest-width unsigned integer type */
+#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+
+    /* 7.18.3 */
+
+    /* limits of ptrdiff_t */
+#define PTRDIFF_MIN (~0x7fffffff)
+#define PTRDIFF_MAX   2147483647
+
+    /* limits of sig_atomic_t */
+#define SIG_ATOMIC_MIN (~0x7fffffff)
+#define SIG_ATOMIC_MAX   2147483647
+
+    /* limit of size_t */
+#define SIZE_MAX 4294967295u
+
+    /* limits of wchar_t */
+    /* NB we have to undef and redef because they're defined in both
+     * stdint.h and wchar.h */
+#undef WCHAR_MIN
+#undef WCHAR_MAX
+
+#if defined(__WCHAR32)
+  #define WCHAR_MIN   0
+  #define WCHAR_MAX   0xffffffffU
+#else
+  #define WCHAR_MIN   0
+  #define WCHAR_MAX   65535
+#endif
+
+    /* limits of wint_t */
+#define WINT_MIN (~0x7fffffff)
+#define WINT_MAX 2147483647
+
+#endif /* __STDC_LIMIT_MACROS */

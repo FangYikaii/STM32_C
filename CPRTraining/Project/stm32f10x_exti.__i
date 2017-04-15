@@ -1,0 +1,5 @@
+-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\CoreSupport -I..\Libraries\CMSIS\DeviceSupport -I..\Libraries\CMSIS\DeviceSupport\Startup -I..\Libraries\STM32F10x_StdPeriph_Driver_V3.5\inc -I..\User\Include -I..\Libraries\STM32_UDisk\FATFS_V0.08A\src -I..\Libraries\STM32_UDisk\STM32_USB_HOST_Driver\inc -I..\Libraries\STM32_UDisk\STM32_USB_HOST_Library\Class\HID\inc -I..\Libraries\STM32_UDisk\STM32_USB_HOST_Library\Class\MSC\inc -I..\Libraries\STM32_UDisk\STM32_USB_HOST_Library\Core\inc -I..\Libraries\STM32_UDisk\USB_User\inc 
+-I C:\Keil\ARM\RV31\INC 
+-I C:\Keil\ARM\CMSIS\Include 
+-I C:\Keil\ARM\Inc\ST\STM32F10x 
+-DSTM32F10X_CL -DUSE_STDPERIPH_DRIVER -o "stm32f10x_exti.o" --omf_browse "stm32f10x_exti.crf" --depend "stm32f10x_exti.d" "..\Libraries\STM32F10x_StdPeriph_Driver_V3.5\src\stm32f10x_exti.c"

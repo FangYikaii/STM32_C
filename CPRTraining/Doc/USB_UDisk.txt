@@ -1,0 +1,95 @@
+/*
+               各模块的管脚使用情况配置
+*/
+
+//************************************************************
+
+//************************************************************
+					工程配置宏变量初始化
+	STM32F10X_CL,USE_STDPERIPH_DRIVER
+
+
+//************************************************************
+							USB_OTG
+
+<----USB_OTG IO 配置  ---->
+
+	USB_VBUS--PA9 
+	USB_DM--PA11 				//USB_HOST
+	USB_DP--PA12 				//USB_HOST 
+	USB_ID--PA10
+	
+	USB_OTG--PC4 				//USB_OTG POWERSW
+
+
+<----USB_OTG 库文件 配置  ---->
+
+USB_User		//初始化文件
+
+usbh_usr.c
+usb_bsp.c
+
+usbh_usr.h
+usb_bsp.h
+
+USB_Core		//内部文件
+
+usbh_core.c
+usbh_hcs.c
+usbh_ioreq.c
+usbh_stdreq.c
+
+USB_MSC			//内部文件		
+
+usbh_msc_bot.c
+usbh_msc_core.c
+usbh_msc_scsi.c
+
+USB_Driver		//内部文件
+
+usb_core.c
+usb_hcd.c
+usb_hcd_int.c
+
+FATFS V0.08A	//内部文件
+
+diskio.c
+ff.c
+
+//************************************************************
+
+1、文档内容 
+
+				(该行有64个字符:包含回车换行，各字符串间用空格隔开) 
+				
+2、创建时间 10进制
+
+2014-05-04 22:18:10  (该行有21个字符:包含回车换行，各字符串间用空格隔开) 
+
+3、每行长度(uint)   数据总行数(ulong)  16进制
+
+FFFF FFFFFFFF   (该行有15个字符:包含回车换行，各字符串间用空格隔开) 
+006F FFFFFFFF
+ 111 FFFFFFFF	
+	 		
+4、各记录数据
+
+  每行数据长度固定为 1024/n
+
+  数字量数据格式：6d%		6位整数，含+/-号，共6个字符  
+  模拟量数据格式：8.2f%  	2位小数，含小数点与符号等，总共8个字符
+
+数据格式如下，上面的格式为预留安排。
+struct RecordDATA									//数据总长度 (22+1)+(2+1)+(8*8+8)+(4*6+4)+2=128					
+{													//			   23	  3      72      30   2					
+	char 	TimeString[23];							//记录时间信息-- 14-05-09 17:15:00:1000(月-日 时:分:秒:毫秒)	
+	int		GearInfo;								//档位信息--2个字符(档位值: -2 -1 1 2 3)
+	float AnalogChannelData[8];						//模拟通道采集值--电压值(油门开度、转向油缸压力、抬举压力等)
+	uint	DigitalChannelData[4];					//模拟通道采集值--脉冲值(泵轮转速、涡轮转速、车速等)
+	
+};
+extern struct RecordDATA RdData;
+
+
+
+

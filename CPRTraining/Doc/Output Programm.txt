@@ -1,0 +1,231 @@
+//========================================
+//<--预定义处理，防止重复定义-->
+#ifndef _main_H
+#define _main_H
+//========================================
+//头文件
+//库文件
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>	
+#include "stm32f10x.h"
+//用户定义文件
+#include "TimerX.h"
+#include "IOControl.h"
+#include "CANx.h"
+#include "MAX7219.h"
+#include "PCF8574.h"
+#include "ADC.h"
+#include "FrequencyCapture.h"
+//========================================
+//宏定义
+#define 			TRUE 				1
+#define 			FALSE				0
+//========================================
+//端口定义
+
+//========================================
+//外调变量声明
+union FlagAF  
+{ 
+      uint8_t flagBits; 
+      struct       
+      { 
+            uint8_t		Bit0							:	1;			
+						uint8_t		Bit1							:	1;
+						uint8_t		Bit2							:	1;				
+						uint8_t		Bit3							:	1;	
+						uint8_t		Bit4							:	1;		 			
+						uint8_t		Bit5							:	1;	
+						uint8_t		Bit6							:	1;				
+						uint8_t		Bit7							:	1;				
+      } Bits; 
+}; 
+extern volatile union FlagAF flagA;
+//========================================
+//外调变量声明
+
+//========================================
+//外调函数声明
+extern void delay(uint16_t k);     //延时程序
+
+//========================================
+//<--预处理结束-->
+#endif
+//========================================
+//程序说明： main.c
+//========================================
+//========================================
+//头文件
+#include "main.h"
+#include "usbh_core.h"
+#include "usbh_usr.h"
+#include "usbh_msc_core.h"
+//========================================
+//变量定义
+volatile union FlagAF flagA;
+//========================================
+//函数声明
+extern void SystemInit(void);
+void Init_System(void);    
+  
+void delay(uint16_t k);     //延时程序
+//========================================
+//主函数
+int main(void) 
+{
+	uint8_t i;
+	Init_System();
+  while (1)
+  {
+		//**********************************************************************
+		//U盘存储处理
+		UserProcess_UDisk();											//U盘读写用户处理区
+		
+		//**********************************************************************
+		//控制器信号处理		
+		GearScanVSDeal();								//档位扫描和处理程序	
+		
+		//**********************************************************************
+		//键盘扫描程序
+		KeyScan_PCF8574();
+		
+		if(flagTIM5.Bits.T1sec_Flag)
+		{
+			flagTIM5.Bits.T1sec_Flag=FALSE;	
+			
+			//**********************************************************************
+			//基于PCF8574的键盘扫描处理程序
+			if(KeyValue_PCF8574!=0)
+			{
+				if(KeyValue_PCF8574%2==0)
+				{
+					ControllerInfo.ScanTimeMode=1;							
+				}
+				else
+				{
+					ControllerInfo.ScanTimeMode=2;						
+				}
+		
+			}
+			DisplayDigitalTube_2Num_MAX7219 (ControllerInfo.ScanTimeMode,SEGLED3,NOPOINT);		//显示键值			
+			
+			//**********************************************************************
+			//ADC处理程序							
+			printf("ADC is OK\r\n");
+			ADC_ValueFilter();					//ADC滤波--耗时约3ms
+			for(i=0;i<6;i++)						//串口时间耗时25ms
+			{
+				printf("ADCRes.ADCResValue[%d] is %f \r\n",i,ADCRes.ADCResValue[i] );						
+			}
+			printf("*******************************************\r\n");				
+		}		
+  }
+}
+
+//========================================
+//子模块函数
+//========================================
+//函数名称:void Init_System(void)
+//函数功能: 系统初始化
+//入口参数:    
+//出口参数:      
+//========================================
+void Init_System(void)
+{
+
+		//*********************************************************************************
+		//函数初始化
+		SystemInit();
+		flagA.flagBits=0;
+		IOControl_Init();   					//IO初始化
+		MAX7219_Configuration();				//完成MAX7219的配置
+		Init_PCF8574();							//PCF8574的初始化程序
+		Uart_Init();                			//Uart串口初始化
+		TIM5_Init();                			//Timer5定时器初始化
+		ADC_Configuration();
+		FreqCap_Configuration(0xffff,(72-1));	//完成PULSE的配置,以1Mhz的频率计数	
+		//*********************************************************************************
+		//系统变量初始化	
+		ControllerInfo.ScanTimeMode=1;		//档位时间扫描模式置初始值为1
+}
+//========================================
+//函数名称:void delay(uint16_t k)
+//函数功能: 延时程序
+//入口参数:    
+//出口参数:      
+//========================================
+void delay(uint16_t k)
+{ 
+      while(k--)
+      { 
+            ;   
+      }
+}
+//========================================
+//<--预定义处理，防止重复定义-->
+#ifndef _CAN_H
+#define _CAN_H
+
+//========================================
+//头文件
+
+//========================================
+//宏定义
+#define 			CAN1_OwnStdId			0x0701				//本机CAN1地址   【设定标准标识符11位，值0-0x7ff,拓展模式下为29位】
+#define 			CAN2_OwnStdId			0x0702				//本机CAN2地址
+
+#define 			CAN1_LinkStdId			0x0702				//CAN1对应连接机地址
+#define 			CAN2_LinkStdId			0x0701				//CAN2对应连接机地址
+
+
+
+//========================================
+//端口定义
+
+/*
+							CAN1 端口情况
+   CAN1TX -- PA12 , CAN1RX -- PA11 (Default);   CAN1TX -- PD1 , CAN1RX -- PD0 (Remap);					--此板选用 CAN1TX -- PD1 , CAN1RX -- PD0 
+*/
+
+#define 			CAN1TX_GPIOX								GPIOD
+#define 			CAN1RX_GPIOX								GPIOD
+
+#define 			CAN1TX_RCC_APB2Periph_GPIOX					RCC_APB2Periph_GPIOD
+#define 			CAN1RX_RCC_APB2Periph_GPIOX					RCC_APB2Periph_GPIOD
+
+#define 			CAN1TX_GPIO_PIN								GPIO_Pin_1
+#define 			CAN1RX_GPIO_PIN								GPIO_Pin_0
+
+/*
+							CAN2 端口情况
+   CAN2TX -- PB13 , CAN2RX -- PB12 (Default);   CAN2TX -- PB6 , CAN2RX -- PB5 (Remap);					--此板选用 CAN2TX -- PB6 , CAN2RX -- PB5
+*/
+
+#define 			CAN2TX_GPIOX								GPIOB
+#define 			CAN2RX_GPIOX								GPIOB
+#define 			CAN2TX_RCC_APB2Periph_GPIOX					RCC_APB2Periph_GPIOB
+#define 			CAN2RX_RCC_APB2Periph_GPIOX					RCC_APB2Periph_GPIOB
+#define 			CAN2TX_GPIO_PIN								GPIO_Pin_6
+#define 			CAN2RX_GPIO_PIN								GPIO_Pin_5
+//========================================
+//外调变量声明
+extern CAN_InitTypeDef        CAN_InitStructure;
+extern CAN_FilterInitTypeDef  CAN_FilterInitStructure;
+extern CanTxMsg CAN1TxMessage;
+extern CanRxMsg CAN1RxMessage;
+extern CanTxMsg CAN2TxMessage;
+extern CanRxMsg CAN2RxMessage;
+
+//========================================
+//外调函数声明
+extern void CAN_Configuration(void);				//完成CAN的配置
+//========================================
+//<--预处理结束-->
+#endif
+
+
+
+
+
+
