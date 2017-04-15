@@ -1,0 +1,57 @@
+*** Creating Trace Output File 'XG.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"main.o"'
+### List of Objects: adding '"timerx.o"'
+### List of Objects: adding '"usartx.o"'
+### List of Objects: adding '"usb_udisk.o"'
+### List of Objects: adding '"iocontrol.o"'
+### List of Objects: adding '"canx.o"'
+### List of Objects: adding '"max7219.o"'
+### List of Objects: adding '"pcf8574.o"'
+### List of Objects: adding '"rtc.o"'
+### List of Objects: adding '"adc.o"'
+### List of Objects: adding '"frequencycapture.o"'
+### List of Objects: adding '"system_stm32f10x.o"'
+### List of Objects: adding '".\startup_stm32f10x_cl.o"'
+### List of Objects: adding '"misc.o"'
+### List of Objects: adding '"stm32f10x_gpio.o"'
+### List of Objects: adding '"stm32f10x_rcc.o"'
+### List of Objects: adding '"stm32f10x_usart.o"'
+### List of Objects: adding '"stm32f10x_tim.o"'
+### List of Objects: adding '"stm32f10x_adc.o"'
+### List of Objects: adding '"stm32f10x_can.o"'
+### List of Objects: adding '"stm32f10x_rtc.o"'
+### List of Objects: adding '"stm32f10x_bkp.o"'
+### List of Objects: adding '"stm32f10x_pwr.o"'
+### List of Objects: adding '"stm32f10x_dma.o"'
+### List of Objects: adding '"usbh_core.o"'
+### List of Objects: adding '"usbh_hcs.o"'
+### List of Objects: adding '"usbh_ioreq.o"'
+### List of Objects: adding '"usbh_stdreq.o"'
+### List of Objects: adding '"usbh_msc_bot.o"'
+### List of Objects: adding '"usbh_msc_core.o"'
+### List of Objects: adding '"usbh_msc_scsi.o"'
+### List of Objects: adding '"usb_core.o"'
+### List of Objects: adding '"usb_hcd.o"'
+### List of Objects: adding '"usb_hcd_int.o"'
+### List of Objects: adding '"diskio.o"'
+### List of Objects: adding '"ff.o"'
+### List of Objects: adding '"usb_bsp.o"'
+### List of Objects: adding '"usbh_usr.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "main.o" "timerx.o" "usartx.o" "usb_udisk.o" "iocontrol.o" "canx.o" "max7219.o" "pcf8574.o" "rtc.o" "adc.o" "frequencycapture.o" "system_stm32f10x.o" ".\startup_stm32f10x_cl.o" "misc.o" "stm32f10x_gpio.o" "stm32f10x_rcc.o" "stm32f10x_usart.o" "stm32f10x_tim.o" "stm32f10x_adc.o" "stm32f10x_can.o" "stm32f10x_rtc.o" "stm32f10x_bkp.o" "stm32f10x_pwr.o" "stm32f10x_dma.o" "usbh_core.o" "usbh_hcs.o" "usbh_ioreq.o" "usbh_stdreq.o" "usbh_msc_bot.o" "usbh_msc_core.o" "usbh_msc_scsi.o" "usb_core.o" "usb_hcd.o" "usb_hcd_int.o" "diskio.o" "ff.o" "usb_bsp.o" "usbh_usr.o" 
+--library_type=microlib --strict --scatter "XG.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\XG.map" -o XG.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'XG.axf'
+### ADS-LD Command File: 'XG.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'XG.lnp', Handle=0x000003A4
+### Writing '.lnp' file
+### ADS-LD Command file 'XG.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

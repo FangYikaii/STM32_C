@@ -1,0 +1,89 @@
+/*
+               各模块的管脚使用情况配置
+*/
+
+//************************************************************
+
+//************************************************************
+					工程配置宏变量初始化
+	STM32F10X_CL,USE_STDPERIPH_DRIVER
+
+
+//************************************************************
+							CANx
+
+<----CANx IO 配置  ---->
+	
+		CAN1TX ---- PD1
+		CAN1RX ---- PD0		
+		CAN2TX ---- PB6
+		CAN2RX ---- PB5			
+
+
+<----CANx 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+	stm32f10x_can.c
+	
+
+
+//************************************************************
+						普通键盘扫描
+
+
+<----普通键盘 IO 配置  ---->
+	
+		KEY1 ---- PC6
+		KEY2 ---- PC7		
+		KEY3 ---- PC8
+		KEY4 ---- PC9				
+
+
+<----普通键盘 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+
+
+//************************************************************
+						普通LED显示
+
+
+<----普通LED IO 配置  ---->
+	
+		LED1 ---- PE2
+		LED2 ---- PE3	
+		LED3 ---- PE4
+		LED4 ---- PE5
+		
+		
+<----普通LED 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+

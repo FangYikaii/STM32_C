@@ -1,0 +1,48 @@
+/*
+               各模块的管脚使用情况配置
+*/
+
+//************************************************************
+
+
+//************************************************************
+					工程配置宏变量初始化
+	STM32F10X_CL,USE_STDPERIPH_DRIVER
+
+
+//************************************************************
+							RTC
+
+<----RTC IO 配置  ---->
+
+	OSC1_PCF8574  --  PC14		--	OSC32_IN
+
+	OSC2_PCF8574  --  PC15		--	OSC32_OUT
+
+	TAMPER_PCF8574  --  PC13		--	TAMPER-RTC
+
+
+
+<----RTC 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+	stm32f10x_rtc.c	
+	stm32f10x_bkp.c
+	stm32f10x_pwr.c
+	
+	
+<----RTC 说明  配置  ---->
+
+
+
+
+
