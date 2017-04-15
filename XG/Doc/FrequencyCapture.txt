@@ -1,0 +1,51 @@
+/*
+               各模块的管脚使用情况配置
+*/
+
+//************************************************************
+
+//************************************************************
+					工程配置宏变量初始化
+	STM32F10X_CL,USE_STDPERIPH_DRIVER
+
+
+//************************************************************
+							FrequencyCapture
+
+<----FrequencyCapture IO 配置  ---->
+TIM1.channel1 -- PA8         	TIM2.channel1 -- PA0
+TIM1.channel2 -- PA9        	TIM2.channel2 -- PA1
+TIM1.channel3 -- PA10        	TIM2.channel3 -- PA2
+TIM1.channel4 -- PA11         	TIM2.channel4 -- PA3
+
+
+TIM3.channel1 -- PA6         	TIM4.channel1 -- PB6
+TIM3.channel2 -- PA7        	TIM4.channel2 -- PB7
+TIM3.channel3 -- PB0        	TIM4.channel3 -- PB8
+TIM3.channel4 -- PB1         	TIM4.channel4 -- PB9
+
+TIM5.channel1 -- PA0         	
+TIM5.channel2 -- PA1        	
+TIM5.channel3 -- PA2        	
+TIM5.channel4 -- PA3         
+
+
+
+<----FrequencyCapture 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+	stm32f10x_pwr.c
+	
+
+
+//************************************************************
+

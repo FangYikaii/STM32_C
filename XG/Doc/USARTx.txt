@@ -1,0 +1,54 @@
+/*
+               各模块的管脚使用情况配置
+*/
+
+//************************************************************
+
+//************************************************************
+					工程配置宏变量初始化
+	STM32F10X_CL,USE_STDPERIPH_DRIVER
+
+
+//************************************************************
+							USARTx
+
+<----USARTx IO 配置  ---->
+	Definition for COM port1, connected to USART1
+	TX--PA9 RX--PA10(Default) ;TX--PB6 RX--PB7(Remap);				-- 此块电路板使用PA9/PA10管脚	MAX485	
+
+	Definition for COM port2, connected to USART2
+	TX--PA2 RX--PA3 ;TX--PD5 RX--PD6(Remap);						-- 此块电路板使用PD5/PD6管脚	MAX232			
+
+	Definition for COM port3, connected to USART3
+	TX--PB10 RX--PB11(Default) ;TX--PD8 RX--PD9(Remap) ; TX--PC10 RX--PC11(Remap2) ;
+ 
+	Definition for COM port4, connected to USART4
+	TX--PC10 RX--PC11(Default) ;TX-- RX--(Remap) ;				
+
+
+	Definition for COM port5, connected to USART5						
+	TX--PC12 RX--PD2(Default) ;TX-- RX--(Remap) ;
+
+
+	RS485_COM1_EnPIN  --  PD4
+
+
+
+<----USARTx 库文件 配置  ---->
+
+CMSIS
+
+	system_stm32f10x.c				--	SystemInit();
+	system_stm32f10x_cl.s
+
+STM32F10X_StdPeriph_Driver_V3.5
+
+	stm32f10x_gpio.c
+	misc.c
+	stm32f10x_rcc.c
+	stm32f10x_usart.c
+	
+
+
+//************************************************************
+
