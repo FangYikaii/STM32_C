@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Company_2013\XG\2014_NewDesign\ARM\XG_20141109\XG\Project\XG.uvproj
+Project File Date:  11/09/2014
+
+<h2>Output:</h2>
+Build target 'XG_STM32F107VCT'
+compiling main.c...
+main.c: error: C3903U: Argument 'DCM' not permitted for option 'device'.
+Target not created
+Build target 'XG_STM32F107VCT'
+compiling main.c...
+main.c: error: C3903U: Argument 'DCM' not permitted for option 'device'.
+Target not created
